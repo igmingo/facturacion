@@ -2,17 +2,20 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="jar/commons-beanutils-core-1.8.0.jar"/>
-	<classpathentry kind="lib" path="jar/commons-digester-1.7.jar"/>
-	<classpathentry kind="lib" path="jar/commons-javaflow.jar"/>
-	<classpathentry kind="lib" path="jar/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="jar/forms-1.3.0.jar"/>
-	<classpathentry kind="lib" path="jar/groovy-all-1.8.0.jar"/>
-	<classpathentry kind="lib" path="jar/itext-2.1.0.jar"/>
-	<classpathentry kind="lib" path="jar/jasperreports-5.5.0.jar"/>
-	<classpathentry kind="lib" path="jar/javax.servlet.jar"/>
-	<classpathentry kind="lib" path="jar/jcalendar-1.4.jar"/>
-	<classpathentry kind="lib" path="jar/mysql-connector-java-5.1.35-bin.jar"/>
-	<classpathentry kind="lib" path="jar/org.apache.commons.collections.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils-core-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-digester-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-javaflow.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/forms-1.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/groovy-all-1.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/itext-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/itext-pdfa-5.5.4.jar"/>
+	<classpathentry kind="lib" path="lib/itextpdf-5.5.4.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.35-bin.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.collections.jar"/>
+	<classpathentry kind="lib" path="lib/jasperreports-6.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

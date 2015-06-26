@@ -379,12 +379,16 @@ public class DlgFactura extends JDialog {
 			}
 		});
 		
-		pnDetalles.txtImporteProductos.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				calcular();
-			}
-		});
+		try {
+			pnDetalles.numImporteProductos.addChangeListener(new ChangeListener() {
+				@Override
+				public void stateChanged(ChangeEvent arg0) {
+					calcular();
+				}
+			});
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		/*
 		 * INICIALIZACION

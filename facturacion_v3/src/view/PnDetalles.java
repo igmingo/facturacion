@@ -42,8 +42,8 @@ public class PnDetalles extends JPanel {
 	private JTable prodTabla;
 	private CbProductosConFiltro cbProducto;
 	private JSpinner numCantidad;
-	public JSpinner txtImporteIVA;
-	public JSpinner txtImporteProductos;
+	public JSpinner numImporteIVA;
+	public JSpinner numImporteProductos;
 	
 	private int facturaId;
 	
@@ -144,18 +144,18 @@ public class PnDetalles extends JPanel {
 		JLabel lblBase = new JLabel("Importe productos");
 		pnButtons.add(lblBase, "1, 1, right, fill");
 		
-		txtImporteProductos = new JSpinner();
-		txtImporteProductos.setEnabled(false);
-		txtImporteProductos.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
-		pnButtons.add(txtImporteProductos, "3, 1, fill, fill");
+		numImporteProductos = new JSpinner();
+		numImporteProductos.setEnabled(false);
+		numImporteProductos.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+		pnButtons.add(numImporteProductos, "3, 1, fill, fill");
 		JLabel lblTotal = new JLabel("Importe IVA");
 		pnButtons.add(lblTotal, "5, 1, fill, center");
 		
-		txtImporteIVA = new JSpinner();
-		txtImporteIVA.setEnabled(false);
-		txtImporteIVA.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
-		txtImporteIVA.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		pnButtons.add(txtImporteIVA, "7, 1, fill, fill");
+		numImporteIVA = new JSpinner();
+		numImporteIVA.setEnabled(false);
+		numImporteIVA.setModel(new SpinnerNumberModel(new Double(0), null, null, new Double(1)));
+		numImporteIVA.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		pnButtons.add(numImporteIVA, "7, 1, fill, fill");
 		
 		/*
 		 * ESCUCHADORES
@@ -247,8 +247,8 @@ public class PnDetalles extends JPanel {
 			sumaIvas += (fd.getCantidad() * fd.getProdPrecio()) * fd.getProdIva();
 			sumaBases += (fd.getCantidad() * fd.getProdPrecio());
 		}
-		txtImporteIVA.setValue(sumaIvas);
-		txtImporteProductos.setValue(sumaBases);
+		numImporteIVA.setValue(sumaIvas);
+		numImporteProductos.setValue(sumaBases);
 	}
 	
 	protected Detalle obtenerFacturaDetalleEn(int row) {
@@ -293,12 +293,12 @@ public class PnDetalles extends JPanel {
 	
 	public double obtenerImporteProductos() {
 		calculaImportesProductos();
-		return (double) txtImporteProductos.getValue();
+		return (double) numImporteProductos.getValue();
 	}
 	
 	public double obtenerImporteIVA() {
 		calculaImportesProductos();
-		return (double) txtImporteIVA.getValue();
+		return (double) numImporteIVA.getValue();
 	}
 	
 	/**Pone ArrayList completo de Detalles de Factura en el modelo de la TABLA
