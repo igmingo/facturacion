@@ -19,6 +19,14 @@ import model.Producto;
 import model.Usuario;
 
 import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import javax.swing.ImageIcon;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class PnPaneles extends JPanel {
 	/**
@@ -29,23 +37,63 @@ public class PnPaneles extends JPanel {
 	private JTable tabla;
 
 	public PnPaneles(Usuario user, String nombrePanel) {
-		setBounds(0, 0, 774, 528);
-		setLayout(null);
+		//setBounds(0, 0, 790, 435);
+		setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("default:grow"),},
+			new RowSpec[] {
+				RowSpec.decode("fill:min:grow"),}));
 		
 		JPanel pnTipo = new JPanel();
 		pnTipo.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), nombrePanel, TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pnTipo.setBounds(10, 8, 754, 509);
-		add(pnTipo);
-		pnTipo.setLayout(null);
+		add(pnTipo, "1, 1, fill, fill");
+		pnTipo.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("default:grow"),},
+			new RowSpec[] {
+				FormFactory.PREF_ROWSPEC,
+				FormFactory.UNRELATED_GAP_ROWSPEC,
+				RowSpec.decode("fill:default:grow"),
+				FormFactory.PREF_ROWSPEC,}));
+		
+		JPanel panel = new JPanel();
+		pnTipo.add(panel, "1, 1, fill, fill");
+		panel.setLayout(new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("default:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.PREF_COLSPEC,},
+			new RowSpec[] {
+				RowSpec.decode("25px"),}));
 		
 		txtFiltro = new JTextField();
-		txtFiltro.setBounds(10, 20, 655, 20);
-		pnTipo.add(txtFiltro);
+		panel.add(txtFiltro, "1, 1, fill, fill");
 		txtFiltro.setColumns(10);
 		
+		JButton btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setIcon(new ImageIcon(PnPaneles.class.getResource("/iconos/sc10715.png")));
+		panel.add(btnFiltrar, "3, 1, fill, fill");
+		
+		btnFiltrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				switch (nombrePanel) {
+				case "Usuarios":
+					((TbUsuarios) tabla).actualizarTabla(txtFiltro.getText());
+					break;
+				case "Productos":
+					((TbProductos) tabla).actualizarTabla(txtFiltro.getText());
+					break;
+				case "Clientes":
+					((TbClientes) tabla).actualizarTabla(txtFiltro.getText());
+					break;
+				case "Facturas":
+					((TbFacturas) tabla).actualizarTabla(txtFiltro.getText());
+					break;
+				default:
+					break;
+				}
+			}
+		});
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 51, 734, 413);
-		pnTipo.add(scrollPane);
+		pnTipo.add(scrollPane, "1, 3, fill, fill");
 		
 		switch (nombrePanel) {
 		case "Usuarios":
@@ -57,8 +105,8 @@ public class PnPaneles extends JPanel {
 					if (row != -1) {
 						Usuario usu = (Usuario) tabla.getValueAt(row, 0);
 						DlgUsuario dialog = new DlgUsuario(usu);
-						Usuario c = dialog.mostrar();
-						if (c != null) {
+						Usuario u = dialog.mostrar();
+						if (u!=null) {
 							((TbUsuarios) tabla).actualizarTabla(txtFiltro.getText());
 						}
 					}
@@ -92,7 +140,7 @@ public class PnPaneles extends JPanel {
 						Cliente cli = (Cliente) tabla.getValueAt(row, 0);
 						DlgCliente dialog = new DlgCliente(cli);
 						Cliente c = dialog.mostrar();
-						if (c != null) {
+						if (c!=null) {
 							((TbClientes) tabla).actualizarTabla(txtFiltro.getText());
 						}
 					}
@@ -109,7 +157,7 @@ public class PnPaneles extends JPanel {
 						Factura fac = (Factura) tabla.getValueAt(row, 0);
 						DlgFactura dialog = new DlgFactura(fac);
 						Factura f = dialog.mostrar();
-						if (f != null) {
+						if (f!=null) {
 							((TbFacturas) tabla).actualizarTabla(txtFiltro.getText());
 						}
 					}
@@ -122,13 +170,8 @@ public class PnPaneles extends JPanel {
 		}
 		scrollPane.setViewportView(tabla);
 		
-		JButton btnFiltrar = new JButton("Filtrar");
-		btnFiltrar.setBounds(675, 20, 69, 23);
-		pnTipo.add(btnFiltrar);
-		
 		JButton btnNuevo = new JButton(" + " + nombrePanel );
-		btnNuevo.setBounds(292, 475, 170, 23);
-		pnTipo.add(btnNuevo);
+		pnTipo.add(btnNuevo, "1, 4, fill, fill");
 		
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -168,27 +211,6 @@ public class PnPaneles extends JPanel {
 						((TbFacturas) tabla).actualizarTabla(txtFiltro.getText());
 					}
 				}
-					break;
-				default:
-					break;
-				}
-			}
-		});
-		
-		btnFiltrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				switch (nombrePanel) {
-				case "Usuarios":
-					((TbUsuarios) tabla).actualizarTabla(txtFiltro.getText());
-					break;
-				case "Productos":
-					((TbProductos) tabla).actualizarTabla(txtFiltro.getText());
-					break;
-				case "Clientes":
-					((TbClientes) tabla).actualizarTabla(txtFiltro.getText());
-					break;
-				case "Facturas":
-					((TbFacturas) tabla).actualizarTabla(txtFiltro.getText());
 					break;
 				default:
 					break;

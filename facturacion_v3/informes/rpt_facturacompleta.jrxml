@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2015-06-25T13:53:03 -->
+<!-- 2015-06-29T14:10:48 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_facturacompleta" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd9c2cb6-16e0-47bb-bb94-9662acb07336">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Facturacion Data Adapter "/>
 	<style name="Cabecera" hTextAlign="Right" vTextAlign="Middle" fontSize="12" isBold="true"/>
@@ -230,7 +230,7 @@ AND $P{facturaid} = facturacion2015.facturas.id]]>
 		<band height="130" splitType="Stretch">
 			<image scaleImage="RetainShape">
 				<reportElement x="-20" y="0" width="595" height="130" uuid="d546253c-5705-41c5-913c-b8135bc0a681"/>
-				<imageExpression><![CDATA["C:/Users/Ignacio/git/facturacion2015/facturacion2015/informes/banner.png"]]></imageExpression>
+				<imageExpression><![CDATA["./informes/banner.png"]]></imageExpression>
 			</image>
 			<rectangle>
 				<reportElement mode="Opaque" x="-20" y="0" width="595" height="130" backcolor="rgba(255, 255, 255, 0.78431374)" uuid="c3d662b7-143e-46e4-8b94-517c5ee95e6d"/>

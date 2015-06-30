@@ -42,30 +42,18 @@ public class TbProductos extends JTable {
 			}
 		});
 		setAutoCreateRowSorter(true);
-		
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				int row = getSelectedRow();
-				if (row!=-1) {
-						Producto pro = (Producto) getValueAt(row, 0);
-						DlgProducto dialog = new DlgProducto (pro);
-						Producto p = dialog.mostrar();
-						if (p!=null) {
-							actualizarTabla(filtro);
-						}
-				}
-			}
-		});
+		actualizarTabla(this.filtro);
 	}
 	
 	public void actualizarTabla(String filtro) {
 		this.setFiltro(filtro);
 		ArrayList<Vector<Object>> tabla = new BDDProductos().recuperaTablaProductos(filtro);
-		DefaultTableModel dtm = (DefaultTableModel) getModel();
-		dtm.setRowCount(0);
-		for (Vector<Object> fila : tabla) {
-			dtm.addRow(fila);
+		if (tabla!=null) {
+			DefaultTableModel dtm = (DefaultTableModel) getModel();
+			dtm.setRowCount(0);
+			for (Vector<Object> fila : tabla) {
+				dtm.addRow(fila);
+			}
 		}
 	}
 

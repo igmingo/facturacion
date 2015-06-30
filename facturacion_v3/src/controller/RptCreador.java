@@ -16,69 +16,89 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class RptCreador {
 
-	JasperViewer visualizador;
+	JasperViewer visualizador = null;
 
 	public RptCreador(String string) {
-		String nameReport = "";
 		Map<String, Object> parametros = null;
+		JasperReport report = null;
 		switch (string) {
 		case "FacturaPorId":
-			nameReport = "rpt_facturacompleta.jasper";	
 			parametros = new DlgRptFacPorId().mostrar();
+			if (parametros!=null) {
+				report = cargarInforme("rpt_facturacompleta.jasper");
+			}
 			break;
 		case "FacturasDeCliente":
-			nameReport = "rpt_facturasporcliente.jasper";	
 			parametros = new DlgRptFacPorCliente().mostrar();
+			if (parametros!=null) {
+				report = cargarInforme("rpt_facturasporcliente.jasper");
+			}
 			break;
 		case "ProductosDesde":
-			nameReport = "rpt_productosprecioorden.jasper";
 			parametros = new DlgRptProd().mostrar();
+			if (parametros!=null) {
+				report = cargarInforme("rpt_productosprecioorden.jasper");
+			}
 			//"desdeprecio", "hastaprecio", "orden"
 			break;
 		case "Productos":
-			nameReport = "rpt_productos.jasper";
+			report = cargarInforme("rpt_productos.jasper");
 			break;
 		case "Clientes":
-			nameReport = "rpt_clientes.jasper";
+			report = cargarInforme("rpt_clientes.jasper");
 			break;
 		case "Facturas":
-			nameReport = "rpt_facturas.jasper";
+			report = cargarInforme("rpt_facturas.jasper");
 			break;
 		default:
 			break;
 		}
 		
-		try {
-			JasperReport report;
-			JasperPrint reportRelleno;
-			//JasperViewer reportVisor;
-			report = (JasperReport) JRLoader.loadObjectFromFile("./informes/" + nameReport);
-			Connection cnx = new MysqlConexion().getConection();
-			System.out.println("Parametros " + parametros);
-			reportRelleno = JasperFillManager.fillReport(report, parametros, cnx);
+		if (report!=null) {
 			try {
-				cnx.close();
-			} catch (SQLException e) {
+				//JasperViewer reportVisor;
+				Connection cnx = new MysqlConexion().getConection();
+				System.out.println("Parametros " + parametros);
+				JasperPrint reportRelleno;
+				reportRelleno = JasperFillManager.fillReport(report, parametros, cnx);
+				try {
+					cnx.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				visualizador = new JasperViewer(reportRelleno, false );
+				//Para que solo abra un viewReport
+				//reportVisor.viewReport(reportRelleno, false);
+				//visualizador.setVisible(true);
+			} catch (JRException e) {
 				e.printStackTrace();
 			}
-			visualizador = new JasperViewer(reportRelleno, false );
-			//Para que solo abra un viewReport
-			//reportVisor.viewReport(reportRelleno, false);
-			//visualizador.setVisible(true);
-		} catch (JRException e) {
-			e.printStackTrace();
 		}
 	}
 
-	public boolean mostrar() {
+	private JasperReport cargarInforme(String nameReport) {
+		JasperReport informe = null;
 		try {
-			visualizador.setVisible(true);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			informe = (JasperReport) JRLoader.loadObjectFromFile("./informes/" + nameReport);
+		} catch (JRException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		
+		return informe;
+	}
+
+	public Boolean mostrar() {
+		if (visualizador!=null){
+			try {
+				visualizador.setVisible(true);
+				return true;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		} else {
+			return null;
+		}
 	}
 	
 	public JasperViewer getVisualizador() {

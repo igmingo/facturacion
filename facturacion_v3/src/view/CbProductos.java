@@ -20,9 +20,26 @@ public class CbProductos extends JComboBox<Producto> {
 	
 	public CbProductos() {
 		cbFiltro = null;
-		setEditable(false);
+		setEditable(true);
 		setSelectedIndex(-1);
-		recargarCombo();
+		
+		addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+				setSelectedIndex(-1);
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				if (cbFiltro!=null && cbFiltro.length()>0){
+					setFiltro(((JTextField) getEditor().getEditorComponent()).getText());
+					recargarComboFiltrado();
+				} else {
+					setFiltro(((JTextField) getEditor().getEditorComponent()).getText());
+					recargarComboFiltrado();
+				}
+			}
+		});
+		
 	}
 	
 	/**Recupera el Id del Producto seleccionado
@@ -81,7 +98,7 @@ public class CbProductos extends JComboBox<Producto> {
 			for (Producto p : lista) {
 				addItem(p);
 			}
-			setSelectedIndex(lista.size()-1);
+			//setSelectedIndex(lista.size()-1);
 		}
 	}
 

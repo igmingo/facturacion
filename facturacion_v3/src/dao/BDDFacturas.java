@@ -45,17 +45,19 @@ public class BDDFacturas extends BDD {
 		sql += " ORDER BY facturas.numero";
 		ArrayList<Factura> lista = null;
 		CachedRowSet rs = consultaSQL(sql);
-		try {
-			lista = new ArrayList<>();
-			while (rs.next() == true) {
-				lista.add(new Factura(rs.getInt("id"), rs.getInt("clienteId"), rs.getString("nombreCliente"), rs.getString("nifCliente"), rs.getInt("numero"), rs.getDate("fecha"),
-						rs.getDouble("porcDescuento"), rs.getDouble("porcRecargoEquivalencia"),
-						rs.getDouble("impTotal"), rs.getDouble("impRecargo"), rs.getDouble("impIva"),
-						rs.getString("dirCorreo"), rs.getString("dirFactura"), rs.getString("dirEnvio"),
-						rs.getBoolean("cobrada")));
+		if (rs!=null) {
+			try {
+				lista = new ArrayList<>();
+				while (rs.next() == true) {
+					lista.add(new Factura(rs.getInt("id"), rs.getInt("clienteId"), rs.getString("nombreCliente"), rs.getString("nifCliente"), rs.getInt("numero"), rs.getDate("fecha"),
+							rs.getDouble("porcDescuento"), rs.getDouble("porcRecargoEquivalencia"),
+							rs.getDouble("impTotal"), rs.getDouble("impRecargo"), rs.getDouble("impIva"),
+							rs.getString("dirCorreo"), rs.getString("dirFactura"), rs.getString("dirEnvio"),
+							rs.getBoolean("cobrada")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return lista;
 	}
@@ -494,7 +496,6 @@ public class BDDFacturas extends BDD {
 	 */
 	public ArrayList<Vector<Object>> recuperaTablaFacturas(String txtFiltro) {
 		ArrayList<Vector<Object>> tableData = null;
-		
 		String filtro = null;
 		if (txtFiltro!=null) {
 			ArrayList<String> filtros = new ArrayList<>();
@@ -503,15 +504,17 @@ public class BDDFacturas extends BDD {
 			filtro = Utilidades.creaFiltroOR(filtros);
 		}
 		ArrayList<Factura> lista = recuperaPorFiltro(filtro);
-		tableData = new ArrayList<>();
-		for (Factura factura : lista) {
-			Vector<Object> filaData = new Vector<>();
-			filaData.add(factura);
-			filaData.add(factura.getFecha());
-			filaData.add(factura.getNombreCliente());
-			filaData.add(factura.getImpTotal());
-			filaData.add(factura.isCobrada());
-			tableData.add(filaData);
+		if (lista!=null) {
+			tableData = new ArrayList<>();
+			for (Factura factura : lista) {
+				Vector<Object> filaData = new Vector<>();
+				filaData.add(factura);
+				filaData.add(factura.getFecha());
+				filaData.add(factura.getNombreCliente());
+				filaData.add(factura.getImpTotal());
+				filaData.add(factura.isCobrada());
+				tableData.add(filaData);
+			}
 		}
 		return tableData;
 	}

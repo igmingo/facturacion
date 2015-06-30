@@ -46,19 +46,21 @@ public class TbUsuarios extends JTable {
 		});
 		getColumnModel().getColumn(0).setPreferredWidth(174);
 		getColumnModel().getColumn(1).setPreferredWidth(173);
-
 		getColumnModel().getColumn(0).setPreferredWidth(200);
+		
 		setAutoCreateRowSorter(true);
-
+		actualizarTabla(this.filtro);
 	}
 
 	public void actualizarTabla(String filtro) {
 		this.setFiltro(filtro);
 		ArrayList<Vector<Object>> tabla = new BDDUsuarios().recuperaTablaUsuarios(filtro);
-		DefaultTableModel dtm = (DefaultTableModel) getModel();
-		dtm.setRowCount(0);
-		for (Vector<Object> fila : tabla) {
-			dtm.addRow(fila);
+		if (tabla!=null) {
+			DefaultTableModel dtm = (DefaultTableModel) getModel();
+			dtm.setRowCount(0);
+			for (Vector<Object> fila : tabla) {
+				dtm.addRow(fila);
+			}
 		}
 	}
 

@@ -46,7 +46,7 @@ public class DlgDetalle extends JDialog {
 	
 	private JTextField txtId;
 	private JTextField txtFacturaId;
-	private CbProductosConFiltro cbProd;
+	private CbProductos cbProd;
 	private JTextField txtProdNombre;
 	private JSpinner numProdPrecio;
 	private JSpinner numProdIva;
@@ -109,7 +109,7 @@ public class DlgDetalle extends JDialog {
 		JLabel lblProductoId = new JLabel("Producto");
 		form.add(lblProductoId, "2, 6, right, default");
 		
-		cbProd = new CbProductosConFiltro();
+		cbProd = new CbProductos();
 		cbProd.setEditable(true);
 		form.add(cbProd, "4, 6, fill, default");
 		

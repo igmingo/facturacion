@@ -21,10 +21,12 @@ public class BDD {
 	protected CachedRowSet consultaSQL(String sql) {
 		Connection cnx = new MysqlConexion().getConection();
 		CachedRowSet crs = consultaSQL(cnx,sql);
-		try {
-			cnx.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (cnx!=null) {
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return crs;
 	}
@@ -36,19 +38,21 @@ public class BDD {
 	 * @return ResultSet con el resultado de la executeQuery
 	 */
 	protected CachedRowSet consultaSQL(Connection cnx, String sql) {
-		System.out.println(sql);
-		ResultSet rs = null;
 		CachedRowSet crs = null;
-		try {
-			Statement sentencia = cnx.createStatement();
-			sentencia.executeQuery(sql);
-			//EL RS DE executeQuery NUNCA ES NULO
-			rs = sentencia.getResultSet();
-			crs = new CachedRowSetImpl();
-			crs.populate(rs);
-			rs.close();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+		if (cnx!=null) {
+			System.out.println(sql);
+			ResultSet rs = null;
+			try {
+				Statement sentencia = cnx.createStatement();
+				sentencia.executeQuery(sql);
+				//EL RS DE executeQuery NUNCA ES NULO
+				rs = sentencia.getResultSet();
+				crs = new CachedRowSetImpl();
+				crs.populate(rs);
+				rs.close();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return crs;
 	}
@@ -108,9 +112,9 @@ public class BDD {
 	 * -1 El Update no ha afectado a ningun elemento
 	 */
 	protected Object ejecutaSQL(Connection cnx, String sql) {
-		System.out.println(sql);
 		Object respuesta = null;
 		if (cnx!=null) {
+			System.out.println(sql);
 			ResultSet rs = null;
 			CachedRowSet crs = null;
 			try {

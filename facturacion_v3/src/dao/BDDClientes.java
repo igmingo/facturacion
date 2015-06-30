@@ -33,21 +33,23 @@ public class BDDClientes extends BDD {
 		sql += " ORDER BY clientes.id";
 		ArrayList<Cliente> lista = null;
 		CachedRowSet rs = consultaSQL(sql);
-		try {
-			lista = new ArrayList<>();
-			while (rs.next() == true) {
-				lista.add(new Cliente(rs.getInt("id"), rs.getString("nombre"),
-						rs.getString("apellidos"), rs.getString("nif"), rs
-								.getString("dirCorreo"), rs
-								.getString("dirFactura"), rs
-								.getString("dirEnvio"), rs
-								.getString("contacto"), rs
-								.getDouble("porcRecargoEquivalencia"), rs
-								.getDouble("porcDescuento"), rs
-								.getDate("fechaAlta"), rs.getBoolean("baja")));
+		if (rs!=null){
+			try {
+				lista = new ArrayList<>();
+				while (rs.next() == true) {
+					lista.add(new Cliente(rs.getInt("id"), rs.getString("nombre"),
+							rs.getString("apellidos"), rs.getString("nif"), rs
+									.getString("dirCorreo"), rs
+									.getString("dirFactura"), rs
+									.getString("dirEnvio"), rs
+									.getString("contacto"), rs
+									.getDouble("porcRecargoEquivalencia"), rs
+									.getDouble("porcDescuento"), rs
+									.getDate("fechaAlta"), rs.getBoolean("baja")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return lista;
 	}
@@ -124,14 +126,16 @@ public class BDDClientes extends BDD {
 		filtros.add("clientes.nif LIKE '%" + txtFiltro + "%'");
 		String filtro = Utilidades.creaFiltroOR(filtros);
 		ArrayList<Cliente> lista = recuperaPorFiltro(filtro);
-		tableData = new ArrayList<>();
-		for (Cliente cliente : lista) {
-			Vector<Object> filaData = new Vector<>();
-			filaData.add(cliente);
-			filaData.add(cliente.getNombre());
-			filaData.add(cliente.getApellidos());
-			filaData.add(cliente.getNif());
-			tableData.add(filaData);
+		if (lista!=null) {
+			tableData = new ArrayList<>();
+			for (Cliente cliente : lista) {
+				Vector<Object> filaData = new Vector<>();
+				filaData.add(cliente);
+				filaData.add(cliente.getNombre());
+				filaData.add(cliente.getApellidos());
+				filaData.add(cliente.getNif());
+				tableData.add(filaData);
+			}
 		}
 		return tableData;
 	}

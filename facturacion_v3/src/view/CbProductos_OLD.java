@@ -11,34 +11,19 @@ import util.Utilidades;
 import model.Producto;
 import dao.BDDProductos;
 
-public class CbProductosConFiltro extends JComboBox<Producto> {
+public class CbProductos_OLD extends JComboBox<Producto> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String cbFiltro;
 	
-	public CbProductosConFiltro() {
+	public CbProductos_OLD() {
+		super();
 		cbFiltro = null;
-		setEditable(true);
+		setEditable(false);
 		setSelectedIndex(-1);
-		
-		addPopupMenuListener(new PopupMenuListener() {
-			public void popupMenuCanceled(PopupMenuEvent e) {
-			}
-			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-			}
-			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-				if (cbFiltro!=null && cbFiltro.length()>0){
-					setFiltro(((JTextField) getEditor().getEditorComponent()).getText());
-					recargarComboFiltrado();
-				} else {
-					setFiltro(((JTextField) getEditor().getEditorComponent()).getText());
-					recargarComboFiltrado();
-				}
-			}
-		});
-		
+		recargarCombo();
 	}
 	
 	/**Recupera el Id del Producto seleccionado
@@ -108,9 +93,5 @@ public class CbProductosConFiltro extends JComboBox<Producto> {
 	public void setFiltro(String f) {
 		this.cbFiltro = f;
 	}
-	
-//	public void recargarCombo() {
-//		recargarCombo("");
-//	}
 
 }

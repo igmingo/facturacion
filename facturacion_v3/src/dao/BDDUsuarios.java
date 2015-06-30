@@ -50,39 +50,6 @@ public class BDDUsuarios extends BDD {
 		return recuperaPorFiltro(null);
 	}
 	
-//	public ArrayList<Usuario> recuperaPorFiltro4(String criterio){
-//		criterio = "WHERE usuarios.email LIKE '%" + criterio + "%'";
-//		String sql = "SELECT * FROM usuarios " + criterio + " ORDER BY usuarios.email";
-//		System.out.println(sql);
-//		ArrayList<Usuario> lista = new ArrayList<>(); 
-//		Connection c = new Conexion().getConection();
-//		if (c!=null) {
-//			try {
-//				// Crea un ESTAMENTO (comando de ejecucion de un sql)
-//				Statement comando = c.createStatement();
-//				ResultSet rs = comando.executeQuery(sql);
-//				while (rs.next() == true) {				
-//					lista.add(new Usuario(
-//							rs.getInt("id"),
-//							rs.getString("nombre"),
-//							rs.getString("email"),
-//							rs.getBoolean("administrador"),
-//							rs.getInt("estado")
-//							)
-//					);
-//				}
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		try {
-//			c.close();
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return lista;
-//	}
-	
 	public Usuario recuperaPorId(int id){
 		if (id != 0) {
 			String filtro = "usuarios.id = " + id;
@@ -144,11 +111,11 @@ public class BDDUsuarios extends BDD {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}
-		try {
-			c.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				c.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return u;
 	}

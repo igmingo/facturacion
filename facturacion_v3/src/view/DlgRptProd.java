@@ -36,7 +36,7 @@ public class DlgRptProd extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private Map<String, Object> retorno = new HashMap<String, Object>();
+	private Map<String, Object> retorno = null;
 	
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
@@ -93,15 +93,15 @@ public class DlgRptProd extends JDialog {
 		buttonGroup.add(rdbtnIva);
 		ordenadopor.add(rdbtnIva);
 		
-		JPanel botones = new JPanel();
-		getContentPane().add(botones, BorderLayout.SOUTH);
-		botones.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel pnBotones = new JPanel();
+		getContentPane().add(pnBotones, BorderLayout.SOUTH);
+		pnBotones.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JButton btnReturnParams = new JButton("Informe");
-		botones.add(btnReturnParams);
+		pnBotones.add(btnReturnParams);
 		btnReturnParams.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Map<String, Object> retorno = new HashMap<String, Object>();
+				retorno = new HashMap<String, Object>();
 				retorno.put("desdeprecio", desdeprecio.getValue());
 				retorno.put("hastaprecio", hastaprecio.getValue());
 				String orden = "nombre";
@@ -119,7 +119,7 @@ public class DlgRptProd extends JDialog {
 				setVisible(false);
 			}
 		});
-		botones.add(btnCancelar);
+		pnBotones.add(btnCancelar);
 
 	}
 	

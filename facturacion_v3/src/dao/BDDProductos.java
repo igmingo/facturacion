@@ -23,18 +23,6 @@ public class BDDProductos extends BDD {
 	/*
 	 * 	METODOS PUBLICOS
 	 */
-	/** Resta el Stock la cantidad indicada
-	 * @param cnx es la Conexion activa
-	 * @param prodId es el ID del Producto que vamos a bajar el stock
-	 * @param cantidad es la cantidad que va a ser restada (debe ser positiva)
-	 * @return
-	 */
-	public Integer restarStock (Connection cnx, int prodId, int cantidad) {
-		String sql = "UPDATE productos SET productos.stock = productos.stock - " + cantidad + " WHERE productos.id = " + prodId;
-		System.out.println(sql);
-		ejecutaSQL(cnx, sql);
-		return cantidad;
-	}
 	
 	public ArrayList<Producto> recuperaPorFiltro(String filtro) {
 		String sql = "SELECT * FROM productos WHERE ";
@@ -42,16 +30,18 @@ public class BDDProductos extends BDD {
 		sql += " ORDER BY productos.id";
 		ArrayList<Producto> lista = null;
 		CachedRowSet rs = consultaSQL(sql);
-		try {
-			lista = new ArrayList<>();
-			while (rs.next() == true) {
-				lista.add(new Producto(rs.getInt("id"), rs.getString("nombre"),
-						rs.getDouble("precio"), rs.getDouble("iva"), rs
-								.getInt("stock"), rs.getString("descripcion"),
-						rs.getBoolean("baja")));
+		if (rs!=null){
+			try {
+				lista = new ArrayList<>();
+				while (rs.next() == true) {
+					lista.add(new Producto(rs.getInt("id"), rs.getString("nombre"),
+							rs.getDouble("precio"), rs.getDouble("iva"), rs
+									.getInt("stock"), rs.getString("descripcion"),
+							rs.getBoolean("baja")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 		return lista;
 	}
@@ -106,6 +96,19 @@ public class BDDProductos extends BDD {
 		return ejecutaSQL("DELETE FROM productos WHERE productos.id = " + id)>0?true:false;
 	}
 	
+	/** Resta el Stock la cantidad indicada
+	 * @param cnx es la Conexion activa
+	 * @param prodId es el ID del Producto que vamos a bajar el stock
+	 * @param cantidad es la cantidad que va a ser restada (debe ser positiva)
+	 * @return
+	 */
+	public Integer restarStock (Connection cnx, int prodId, int cantidad) {
+		String sql = "UPDATE productos SET productos.stock = productos.stock - " + cantidad + " WHERE productos.id = " + prodId;
+		System.out.println(sql);
+		ejecutaSQL(cnx, sql);
+		return cantidad;
+	}
+	
 	/*
 	 * RECUPERAR TABLAS ESPECIALES
 	 */
@@ -117,13 +120,15 @@ public class BDDProductos extends BDD {
 		filtros.add("productos.descripcion LIKE '%" + txtFiltro + "%'");
 		String filtro = Utilidades.creaFiltroOR(filtros);
 		ArrayList<Producto> lista = recuperaPorFiltro(filtro);
-		tableData = new ArrayList<>();
-		for (Producto pro : lista) {
-			Vector<Object> filaData = new Vector<>();
-			filaData.add(pro);
-			filaData.add(pro.getPrecio());
-			filaData.add(pro.getStock());
-			tableData.add(filaData);
+		if (lista!=null) {
+			tableData = new ArrayList<>();
+			for (Producto pro : lista) {
+				Vector<Object> filaData = new Vector<>();
+				filaData.add(pro);
+				filaData.add(pro.getPrecio());
+				filaData.add(pro.getStock());
+				tableData.add(filaData);
+			}
 		}
 		return tableData;
 	}

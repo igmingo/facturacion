@@ -22,6 +22,7 @@ import model.Usuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.UIManager;
 
 public class PnLogin extends JPanel {
 	/**
@@ -36,6 +37,9 @@ public class PnLogin extends JPanel {
 
 	public PnLogin(Usuario u) {
 		this.usuarioPanel = u;
+		Font fontTfLogin = new Font("tfLogin", UIManager.getFont("TextField.font").getStyle(), UIManager.getFont("TextField.font").getSize()+6);
+		Font fontLblLogin = new Font("lblLogin", UIManager.getFont("Label.font").getStyle(), UIManager.getFont("Label.font").getSize()+8);
+		
 		setOpaque(false);
 		setBounds(0, 0, 706, 533);
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -70,18 +74,20 @@ public class PnLogin extends JPanel {
 		JLabel lblUsuariocorreo = new JLabel("Correo electr\u00F3nico");
 		lblUsuariocorreo.setForeground(Color.WHITE);
 		pnLogin.add(lblUsuariocorreo, "2, 2, fill, top");
-		lblUsuariocorreo.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblUsuariocorreo.setFont(fontLblLogin);
 		
 		txtEmail = new TxfCorreo();
+		txtEmail.setFont(fontTfLogin);
 		pnLogin.add(txtEmail, "2, 4, fill, fill");
 		txtEmail.setColumns(10);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 		lblContrasea.setForeground(Color.WHITE);
 		pnLogin.add(lblContrasea, "2, 6, fill, top");
-		lblContrasea.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblContrasea.setFont(fontLblLogin);
 		
 		txtPassword = new JPasswordField();
+		txtPassword.setFont(fontTfLogin);
 		pnLogin.add(txtPassword, "2, 8, fill, fill");
 		txtPassword.setColumns(10);
 		
@@ -95,7 +101,6 @@ public class PnLogin extends JPanel {
 	}
 
 	public Usuario login() {
-		//System.out.println(Encriptacion.getMensajeEncriptado(new String(txtPassword.getPassword()), Encriptacion.SHA256));
 		Usuario user = new BDDUsuarios().login(txtEmail.getText(), new String(txtPassword.getPassword()));
 		if (user!=null && user.getStatus()>0) {
 			user.setLoged(true);

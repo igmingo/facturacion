@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JSpinner;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -34,13 +33,10 @@ import com.jgoodies.forms.layout.Sizes;
 
 import dao.BDDClientes;
 import dao.BDDFacturas;
-import dao.BDDProductos;
 
 import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import util.Utilidades;
 import model.Cliente;

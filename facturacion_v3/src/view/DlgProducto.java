@@ -139,7 +139,9 @@ public class DlgProducto extends JDialog {
 		btnGrabar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				guardar();
-				setVisible(false);
+				if (producto!=null) {
+					setVisible(false);
+				}
 			}
 		});
 		if (producto!=null && producto.getId()>0) {

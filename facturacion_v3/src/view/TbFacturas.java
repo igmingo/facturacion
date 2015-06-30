@@ -77,8 +77,14 @@ public class TbFacturas extends JTable {
 	
 	public int obtenerFacturaId(){
 		DefaultTableModel dtm = (DefaultTableModel) getModel();
-		Factura fac = (Factura) dtm.getValueAt(getSelectedRow(),0);
-		return fac.getId();
+		int selected = getSelectedRow();
+		if (selected>=0) {
+			Factura fac = (Factura) dtm.getValueAt(selected,0);
+			return fac.getId();
+		}
+		else  {
+			return -1;
+		}
 	}
 
 }

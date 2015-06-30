@@ -40,7 +40,7 @@ public class PnDetalles extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTable prodTabla;
-	private CbProductosConFiltro cbProducto;
+	private CbProductos cbProducto;
 	private JSpinner numCantidad;
 	public JSpinner numImporteIVA;
 	public JSpinner numImporteProductos;
@@ -68,7 +68,7 @@ public class PnDetalles extends JPanel {
 			new RowSpec[] {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		cbProducto = new CbProductosConFiltro();
+		cbProducto = new CbProductos();
 		form.add(cbProducto, "1, 1, fill, default");
 		
 		JLabel lblCantidad = new JLabel("Cantidad");

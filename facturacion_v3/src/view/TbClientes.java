@@ -48,10 +48,12 @@ public class TbClientes extends JTable {
 	public void actualizarTabla(String filtro) {
 		this.setFiltro(filtro);
 		ArrayList<Vector<Object>> tabla = new BDDClientes().recuperaTablaClientes(filtro);
-		DefaultTableModel dtm = (DefaultTableModel) getModel();
-		dtm.setRowCount(0);
-		for (Vector<Object> fila : tabla) {
-			dtm.addRow(fila);
+		if (tabla!=null) {
+			DefaultTableModel dtm = (DefaultTableModel) getModel();
+			dtm.setRowCount(0);
+			for (Vector<Object> fila : tabla) {
+				dtm.addRow(fila);
+			}
 		}
 	}
 
